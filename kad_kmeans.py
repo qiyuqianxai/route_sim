@@ -134,7 +134,7 @@ def tradition_k_means(x,N,verbose=False):
     return best_centers,best_cls,best_k,std
 
 
-def get_head(data,central_pos):
+def get_head(data,central_pos,only_dis=False):
     dis_matrix = []
     for i, sink_1 in enumerate(data):
         tmp = []
@@ -147,7 +147,10 @@ def get_head(data,central_pos):
     sink_number = len(data)
     for i,sink in enumerate(data):
         dis2center = np.linalg.norm(sink[0] - central_pos)
-        tmp_dist = sink[1]-np.sum(dis_matrix[i, range(sink_number)])- dis2center*2
+        if only_dis:
+            tmp_dist = np.sum(dis_matrix[i, range(sink_number)])
+        else:
+            tmp_dist = 0.5*sink[1]-0.3*np.sum(dis_matrix[i, range(sink_number)])- 0.2*dis2center
         dist_record.append(tmp_dist)
     central_node_index = np.argmax(dist_record)
     # central_sink = data[central_node_index]

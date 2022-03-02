@@ -26,12 +26,12 @@ pos_data_size = 3
 # kmeans 最大k值
 max_k = 6 # max = 8
 # 传统k-means的初始k值
-kN = 4
+kN = 2
 # 运行周期数
 max_T = 30
 
 # 是否使用新的k-means
-use_custom = True
+use_custom = False
 
 same_seeds(2048)
 ##############################################
@@ -78,7 +78,10 @@ for t in range(1,max_T):
     cls_dis_mats = []
     for cat in cls:
         # 选择簇头,得到距离矩阵
-        head_index, cls_dis_mat = get_head(cls[cat],central_sink_pos)
+        if use_custom:
+            head_index, cls_dis_mat = get_head(cls[cat],central_sink_pos)
+        else:
+            head_index, cls_dis_mat = get_head(cls[cat], central_sink_pos,True)
         head_indexs.append(head_index)
         cls_dis_mats.append(cls_dis_mat)
         for i,point in enumerate(cls[cat]):

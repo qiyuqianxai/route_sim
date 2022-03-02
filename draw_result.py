@@ -53,12 +53,6 @@ with open("k4.json","r",encoding="utf-8")as f:
     k4_sink_survival_cycles = k4["所有节点的存活周期"]
     k4_stds_record = k4["每轮聚类后的各簇间的能量标准差"]
 
-# plt.bar(["SNDC+DEA","DCFL","FL"], total_e, color='rbg')  # or `color=['r', 'g', 'b']`
-# # plt.legend(loc='best')
-# plt.ylabel('energy_value')
-# plt.xlabel('methods')
-# # plt.grid()
-# plt.savefig("FL_BDRS_ra_ea_e.png")
 
 plt.figure()
 plt.title("能耗对比")
@@ -73,6 +67,16 @@ plt.grid()
 plt.savefig("contrast—cost_e.png")
 
 plt.figure()
+plt.title("能耗均值对比")
+val = [np.average(np.array(ck_cost_e_record)),np.average(np.array(k2_cost_e_record)),
+       np.average(np.array(k3_cost_e_record)),np.average(np.array(k4_cost_e_record))]
+plt.bar(["ck","k2","k3","k4"], val, color='rbgy')  # or `color=['r', 'g', 'b']`
+plt.ylabel('能耗值')
+plt.xlabel('methods')
+# plt.grid()
+plt.savefig("contrast—cost_e_avg.png")
+
+plt.figure()
 plt.title("活跃的sink数对比")
 plt.plot(np.array(ck_active_sink_record), c='r', label='ck-每轮活跃的sink数')
 plt.plot(np.array(k2_active_sink_record), c='b', label='k2-每轮活跃的sink数')
@@ -83,6 +87,16 @@ plt.ylabel('活跃的sink数')
 plt.xlabel('周期')
 plt.grid()
 plt.savefig("contrast—active_sink.png")
+
+plt.figure()
+plt.title("活跃的sink数均值对比")
+val = [np.average(np.array(ck_active_sink_record)),np.average(np.array(k2_active_sink_record)),
+       np.average(np.array(k3_active_sink_record)),np.average(np.array(k4_active_sink_record))]
+plt.bar(["ck","k2","k3","k4"], val, color='rbgy')  # or `color=['r', 'g', 'b']`
+plt.ylabel('活跃的sink数')
+plt.xlabel('methods')
+# plt.grid()
+plt.savefig("contrast—active_sink_avg.png")
 
 plt.figure()
 plt.title("各簇间的能量标准差对比")
@@ -96,6 +110,15 @@ plt.xlabel('周期')
 plt.grid()
 plt.savefig("contrast—std.png")
 
+plt.figure()
+plt.title("各簇间的能量标准差均值对比")
+val = [np.average(np.array(ck_stds_record)),np.average(np.array(k2_stds_record)),
+       np.average(np.array(k3_stds_record)),np.average(np.array(k4_stds_record))]
+plt.bar(["ck","k2","k3","k4"], val, color='rbgy')  # or `color=['r', 'g', 'b']`
+plt.ylabel('能量标准差')
+plt.xlabel('methods')
+# plt.grid()
+plt.savefig("contrast—std_avg.png")
 
 plt.figure()
 plt.title("能效对比")
@@ -110,6 +133,16 @@ plt.grid()
 plt.savefig("contrast—ef.png")
 
 plt.figure()
+plt.title("能效均值对比")
+val = [np.average(np.array(ck_ef_record)),np.average(np.array(k2_ef_record)),
+       np.average(np.array(k3_ef_record)),np.average(np.array(k4_ef_record))]
+plt.bar(["ck","k2","k3","k4"], val, color='rbgy')  # or `color=['r', 'g', 'b']`
+plt.ylabel('能效')
+plt.xlabel('methods')
+# plt.grid()
+plt.savefig("contrast—ef_avg.png")
+
+plt.figure()
 plt.title("发送成功的数据量对比")
 plt.plot(np.array(ck_post_data_record), c='r', label='ck-每轮发送成功的数据')
 plt.plot(np.array(k2_post_data_record), c='b', label='k2-每轮发送成功的数据')
@@ -122,6 +155,16 @@ plt.grid()
 plt.savefig("contrast—pos_data.png")
 
 plt.figure()
+plt.title("发送成功的数据量均值对比")
+val = [np.average(np.array(ck_post_data_record)),np.average(np.array(k2_post_data_record)),
+       np.average(np.array(k3_post_data_record)),np.average(np.array(k4_post_data_record))]
+plt.bar(["ck","k2","k3","k4"], val, color='rbgy')  # or `color=['r', 'g', 'b']`
+plt.ylabel('发送成功的数据量')
+plt.xlabel('methods')
+# plt.grid()
+plt.savefig("contrast—pos_data_avg.png")
+
+plt.figure()
 plt.title("发送失败的数据量对比")
 plt.plot(np.array(ck_loss_data_record), c='r', label='ck-每轮发送失败的数据')
 plt.plot(np.array(k2_loss_data_record), c='b', label='k2-每轮发送失败的数据')
@@ -132,3 +175,13 @@ plt.ylabel('数据包')
 plt.xlabel('周期')
 plt.grid()
 plt.savefig("contrast—loss_data.png")
+
+plt.figure()
+plt.title("发送失败的数据量均值对比")
+val = [np.average(np.array(ck_loss_data_record)),np.average(np.array(k2_loss_data_record)),
+       np.average(np.array(k3_loss_data_record)),np.average(np.array(k4_loss_data_record))]
+plt.bar(["ck","k2","k3","k4"], val, color='rbgy')  # or `color=['r', 'g', 'b']`
+plt.ylabel('发送失败的数据量')
+plt.xlabel('methods')
+# plt.grid()
+plt.savefig("contrast—loss_data_avg.png")
