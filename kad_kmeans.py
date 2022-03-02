@@ -42,6 +42,7 @@ class K_Means(object):
             prev_centers = dict(self.centers_)
 
             for c in self.clf_:
+                # print(self.clf_[c])
                 self.centers_[c] = np.average(np.array(self.clf_[c])[:,0], axis=0)
 
             # '中心点'是否在误差范围
@@ -98,7 +99,7 @@ def custom_k_means(x,max_k = 6,verbose=False):
     best_cls = cls[np.argmin(stds)]
     print("best k:", best_k,"std:",np.min(stds))
 
-    return best_centers,best_cls,best_k
+    return best_centers,best_cls,best_k,np.min(stds)
 
 def tradition_k_means(x,N,verbose=False):
     k_means = K_Means(k=N,only_dis=True)
@@ -130,7 +131,7 @@ def tradition_k_means(x,N,verbose=False):
     best_centers = k_means.centers_
     best_cls = k_means.clf_
     print("k:", best_k, "std:", std)
-    return best_centers,best_cls,best_k
+    return best_centers,best_cls,best_k,std
 
 
 def get_head(data,central_pos):
