@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import math
-
+from settings import *
 colors = ["r", "g", "b", "y", "m", "c", "w", "k"]
 
 
@@ -42,8 +42,10 @@ class K_Means(object):
             prev_centers = dict(self.centers_)
 
             for c in self.clf_:
-                # print(self.clf_[c])
-                self.centers_[c] = np.average(np.array(self.clf_[c])[:,0], axis=0)
+                if self.clf_[c] == []:
+                    self.centers_[c] = np.average(np.array(self.clf_[c]), axis=0)
+                else:
+                    self.centers_[c] = np.average(np.array(self.clf_[c])[:,0], axis=0)
 
             # '中心点'是否在误差范围
             optimized = True
@@ -150,11 +152,43 @@ def get_head(data,central_pos,only_dis=False):
         if only_dis:
             tmp_dist = np.sum(dis_matrix[i, range(sink_number)])
         else:
-            tmp_dist = 0.5*sink[1]-0.3*np.sum(dis_matrix[i, range(sink_number)])- 0.2*dis2center
+            tmp_dist = 0.6*sink[1]-0.3*np.sum(dis_matrix[i, range(sink_number)]) - 0.1*dis2center
         dist_record.append(tmp_dist)
     central_node_index = np.argmax(dist_record)
     # central_sink = data[central_node_index]
     return central_node_index,dis_matrix
+
+# 计算簇头到中央节点的路径
+def get_head2center_path(cur_head_info,head_infos,central_pos):
+    e_cost = []
+    for i,head_info in enumerate(head_infos):
+        if (head_info[0] == cur_head_info[0]).all():
+            continue
+        # 计算簇头间的距离和能耗
+        dis_cls2cls = np.linalg.norm(cur_head_info[0]-head_info[0])
+        cls2cls_pos_e = dis_cls2cls * dis_cls2cls * pos_data_size*data_press_ratio * pos_Eelec
+        rec_e = pos_data_size*data_press_ratio * rec_Eelec
+        if cur_head_info[1] < cls2cls_pos_e or head_info[1] < rec_e:
+            continue
+        # 计算跳转簇头到中央节点的距离和能耗
+        dis_cls2ce = np.linalg.norm(head_info[0]-central_pos)
+        pos_e = dis_cls2ce * dis_cls2ce * pos_data_size * data_press_ratio * pos_Eelec
+        if pos_e+rec_e < head_info[1]:
+            e_cost.append([cls2cls_pos_e,pos_e+rec_e,head_info[1],i])
+    if e_cost:
+        print(e_cost)
+        tmp = [e[0]+e[1]-e[2] for e in e_cost]
+        res_index = np.argmin(tmp)
+        min_cost = e_cost[res_index]
+        res_index = min_cost[3]
+        return res_index,min_cost
+    else:
+        return [],[]
+
+
+
+
+
 
 if __name__ == '__main__':
     x = np.array([[1, 2], [1.5, 1.8], [5, 8], [7,2],[8, 8], [1, 0.6], [9, 11],[4,5],[6,2],[2,9]])
