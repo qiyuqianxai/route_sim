@@ -33,7 +33,7 @@ class K_Means(object):
                     if self.only_consider_dis:
                         distances.append(np.linalg.norm(feature[0] - self.centers_[center]))
                     else:
-                        distances.append((np.linalg.norm(feature[0] - self.centers_[center]))/feature[1]) # e/dis
+                        distances.append((np.linalg.norm(feature[0] - self.centers_[center]))/feature[1]) # dis/e
                 classification = distances.index(min(distances))
 
                 self.clf_[classification].append(feature)

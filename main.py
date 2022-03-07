@@ -70,7 +70,6 @@ for t in range(1,max_T):
     plt.savefig(f"{t}_res.png")
     plt.show()
 
-
     t_cost_E = 0
     vaild_e = 0
     t_pos_data = 0
@@ -254,7 +253,29 @@ with open(f"{save_name}.json","w",encoding="utf-8") as f:
         "每轮聚类后的各簇间的能量标准差":stds_record
     },indent=4,ensure_ascii=False))
 
-
+import openpyxl
+import xlwt
+writebook = xlwt.Workbook()#打开一个excel
+sheet = writebook.add_sheet("0")#在打开的excel中添加一个sheet
+content = {
+        "每轮的总能耗":cost_e_record,
+        "每轮的有效能耗":vaild_e_record,
+        "每轮存活的sink数":surive_sink_record,
+        "每轮存活的sink的平均能量":sink_avg_e_record,
+        "每轮活跃的sink数":active_sink_record,
+        "每轮发送成功的数据":post_data_record,
+        "每轮发送失败的数据":loss_data_record,
+        "每轮的丢包率":ef_record,
+        "所有节点的存活周期":sink_survival_cycles,
+        "每轮聚类后的各簇间的能量标准差":stds_record
+    }
+for i,name in enumerate(content):
+    # 写入数值名称
+    sheet.write(0,i,name)
+    # 写入值
+    for j,value in enumerate(content[name]):
+        sheet.write(j+1,i,value)
+writebook.save(f'{save_name}.xls')#一定要记得保存
 
 
 

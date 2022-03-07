@@ -25,6 +25,6 @@ kN = 4
 max_T = 30
 
 # 是否使用新的k-means
-use_custom = False
+use_custom = True
 
-use_pri_path = False
+use_pri_path = True
