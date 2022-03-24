@@ -63,10 +63,10 @@ for t in range(1,max_T):
         cls_dis_mats.append(cls_dis_mat)
         for i,point in enumerate(cls[cat]):
             if i==head_index:
-                plt.scatter(point[0][0], point[0][1], c=colors[cat], marker=".", s=point[1] * 20,alpha=1)
+                plt.scatter(point[0][0], point[0][1], c=colors[cat], marker="^", s=400,alpha=point[1]/sink_init_e)
             else:
-                plt.scatter(point[0][0], point[0][1], c=colors[cat],marker=".",s=point[1]*20,alpha=0.2)
-    plt.scatter([central_sink_pos[0]], [central_sink_pos[1]], marker="*", s=300, c="r", alpha=1)
+                plt.scatter(point[0][0], point[0][1], c=colors[cat],marker=".",s=350,alpha=point[1]/sink_init_e)
+    plt.scatter([central_sink_pos[0]], [central_sink_pos[1]], marker="*", s=500, c="r", alpha=1)
     plt.savefig(f"{t}_res.png")
     plt.show()
 
