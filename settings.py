@@ -22,7 +22,7 @@ max_k = 6# max = 8
 # 传统k-means的初始k值
 kN = 4
 # 运行周期数
-max_T = 30
+max_T = 5
 
 # 是否使用新的k-means
 use_custom = True

@@ -14,6 +14,7 @@ with open("ck.json","r",encoding="utf-8")as f:
     ck_active_sink_record = ck["每轮活跃的sink数"]
     ck_post_data_record = ck["每轮发送成功的数据"]
     ck_loss_data_record = ck["每轮发送失败的数据"]
+    ck_remain_record = ck["每轮剩余总能量"]
     ck_ef_record = ck["每轮的丢包率"]
     ck_sink_survival_cycles = ck["所有节点的存活周期"]
     ck_stds_record = ck["每轮聚类后的各簇间的能量标准差"]
@@ -23,6 +24,7 @@ with open("ck_with_path_pri.json","r",encoding="utf-8")as f:
     ckp_cost_e_record = ckp["每轮的总能耗"]
     ckp_vaild_e_record = ckp["每轮的有效能耗"]
     ckp_surive_sink_record = ckp["每轮存活的sink数"]
+    ckp_remain_record = ckp["每轮剩余总能量"]
     ckp_sink_avg_e_record = ckp["每轮存活的sink的平均能量"]
     ckp_active_sink_record = ckp["每轮活跃的sink数"]
     ckp_post_data_record = ckp["每轮发送成功的数据"]
@@ -35,6 +37,7 @@ with open("k2.json","r",encoding="utf-8")as f:
     k2 = json.load(f)
     k2_cost_e_record = k2["每轮的总能耗"]
     k2_vaild_e_record = k2["每轮的有效能耗"]
+    k2_remain_record = k2["每轮剩余总能量"]
     k2_surive_sink_record = k2["每轮存活的sink数"]
     k2_sink_avg_e_record = k2["每轮存活的sink的平均能量"]
     k2_active_sink_record = k2["每轮活跃的sink数"]
@@ -49,6 +52,7 @@ with open("k3.json","r",encoding="utf-8")as f:
     k3_cost_e_record = k3["每轮的总能耗"]
     k3_vaild_e_record = k3["每轮的有效能耗"]
     k3_surive_sink_record = k3["每轮存活的sink数"]
+    k3_remain_record = k3["每轮剩余总能量"]
     k3_sink_avg_e_record = k3["每轮存活的sink的平均能量"]
     k3_active_sink_record = k3["每轮活跃的sink数"]
     k3_post_data_record = k3["每轮发送成功的数据"]
@@ -61,6 +65,7 @@ with open("k4.json","r",encoding="utf-8")as f:
     k4 = json.load(f)
     k4_cost_e_record = k4["每轮的总能耗"]
     k4_vaild_e_record = k4["每轮的有效能耗"]
+    k4_remain_record = k4["每轮剩余总能量"]
     k4_surive_sink_record = k4["每轮存活的sink数"]
     k4_sink_avg_e_record = k4["每轮存活的sink的平均能量"]
     k4_active_sink_record = k4["每轮活跃的sink数"]
@@ -69,6 +74,19 @@ with open("k4.json","r",encoding="utf-8")as f:
     k4_ef_record = k4["每轮的丢包率"]
     k4_sink_survival_cycles = k4["所有节点的存活周期"]
     k4_stds_record = k4["每轮聚类后的各簇间的能量标准差"]
+
+plt.figure()
+plt.title("剩余总能量")
+plt.plot(np.array(ck_remain_record), c='r', label='ck-每轮的剩余总能量')
+plt.plot(np.array(k2_remain_record), c='b', label='k2-每轮的剩余总能量')
+plt.plot(np.array(k3_remain_record), c='g', label='k3-每轮的剩余总能量')
+plt.plot(np.array(k4_remain_record), c='y', label='k4-每轮的剩余总能量')
+plt.plot(np.array(ckp_remain_record), c='m', label='ckp-每轮的剩余总能量')
+plt.legend(loc='best')
+plt.ylabel('能耗值')
+plt.xlabel('周期')
+plt.grid()
+plt.savefig("contrast—remain_e.png")
 
 
 plt.figure()
